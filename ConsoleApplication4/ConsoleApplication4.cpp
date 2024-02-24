@@ -10,7 +10,7 @@ typedef struct
 } queue;
 
 queue *init_q();
-int push(queue *q, int n); // push elem n in queue and return 1, if error return 0.Make check memory overflow.
+int push(queue *q, int n); // push elem n in queue and return 0, if error return 1.Make check memory overflow.
 int pop(queue *q, int *n); // return status of operation and put on *n elem of q->data[q->beg].
 void clear_q(queue *q); // clear all queue. beg = 0, end = -1
 bool is_empty_q(queue *q);
@@ -36,7 +36,6 @@ int main()
 	printf_s("Что вы хотите сделать с вашим списком? + x добавить элемент x, - удалить последний элемент, 0 - завершить программу: \n");
 	while ((c = getchar()) != '0')
 	{
-		
 		switch (c)
 		{
 		case '+':
@@ -77,12 +76,12 @@ int push(queue *q, int n)
 {
 	if (q->end == N - 1)
 	{
-		return 0;
+		return 1;
 	} else
 	{
 		q->end++;
 		q->data[q->end] = n;
-		return 1;
+		return 0;
 	}
 }
 
@@ -92,7 +91,7 @@ int pop(queue *q, int *n)
 	if (is_empty_q(q))
 	{
 		std::cout << "EMPTY QUEUE ERROR\n";
-		return 0;
+		return 2;
 	}
 
 	n = (int*) q->data[q->beg];
@@ -100,7 +99,7 @@ int pop(queue *q, int *n)
 
 	if (q->beg > q->end) clear_q(q);
 
-	return 1;
+	return 0;
 }
 
 bool is_empty_q(queue *q)
