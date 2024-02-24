@@ -1,6 +1,6 @@
 ﻿#include <iostream>
 #include <locale.h>
-
+#include <conio.h>
 const int N = 100;
 
 typedef struct
@@ -20,12 +20,48 @@ int main()
 {
 	setlocale(0, "");
 	queue *q = init_q();
-	std::cout << is_empty_q(q) << '\n';
-	push(q, 11);
-	pop(q);
+	int c = 0, in = 0;
+	printf_s("Введите количество элементов: ");
+	std::cin >> c;
+	printf_s("Введите начальные элементы списка: ");
+	while (c)
+	{
+		scanf_s("%d", &in);
+		push(q, in);
+		c--;
+	}
+	print_q(q);
+	printf_s("Что вы хотите сделать с вашим списком? + x добавить элемент x, - удалить последний элемент, 0 - завершить программу: \n");
+	while ((c = getchar()) != '0')
+	{
+		int tmp = 0;
+		switch (c)
+		{
+		case '+':
+			std::cin >> tmp;
+			getchar();
+			push(q, tmp);
+			break;
+		case '-':
+			getchar();
+			pop(q);
+			break;
+		case 'c':
+			getchar();
+			clear_q(q);
+			break;
+		case '0':
+			print_q(q);
+			break;
+		default:
+			break;
+		}
+	}
+	printf_s("Ваш список: \n");
 	print_q(q);
 
-	return 0;
+	return 0 * _getch();
+
 }
 
 queue *init_q()
