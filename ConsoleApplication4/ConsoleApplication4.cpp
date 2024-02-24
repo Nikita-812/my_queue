@@ -11,7 +11,7 @@ typedef struct
 
 queue *init_q();
 int push(queue *q, int n); // push elem n in queue and return 1, if error return 0.Make check memory overflow.
-int pop(queue *q); // return beg-index elem.
+int pop(queue *q); // return status of operation.
 void clear_q(queue *q); // clear all queue. beg = 0, end = -1
 bool is_empty_q(queue *q);
 void print_q(queue *q);
@@ -87,19 +87,16 @@ int push(queue *q, int n)
 
 int pop(queue *q)
 {
-	int n;
 	if (is_empty_q(q))
 	{
 		std::cout << "EMPTY QUEUE\n";
-		exit(-1);
+		return 0;
 	}
-
-	n = q->data[q->beg];
 	q->beg++;
 
 	if (q->beg > q->end) clear_q(q);
 
-	return n;
+	return 1;
 }
 
 bool is_empty_q(queue *q)
